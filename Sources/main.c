@@ -23,6 +23,7 @@ int main ()
 		ret = stack_push (&stack1, 33);
 		ret = stack_push (&stack1, 44);
 		ret = stack_push (&stack1, 55);
+		ret = stack_display (&stack1);
 		ret = stack_push (&stack1, 66); // fail
 		ret = stack_push (&stack1, 77); // fail
 		ret = stack_pop (&stack1, &stack_pop_value);
@@ -31,6 +32,7 @@ int main ()
                 printf("stack_pop_value = (%d)\n", stack_pop_value);
 		ret = stack_pop (&stack1, &stack_pop_value);
                 printf("stack_pop_value = (%d)\n", stack_pop_value);
+		ret = stack_display (&stack1);
 		ret = stack_pop (&stack1, &stack_pop_value);
                 printf("stack_pop_value = (%d)\n", stack_pop_value);
 		ret = stack_pop (&stack1, &stack_pop_value);
@@ -45,6 +47,17 @@ int main ()
 		{
                 	printf("stack_pop_value = (%d)\n", stack_pop_value);
 		}
+		uint32 stack_top_value = ZERO_INIT;
+
+		ret = stack_push (&stack1, 99);
+		ret = stack_top(&stack1, &stack_top_value);
+		ret = stack_display (&stack1);
+
+		if (R_OK == ret)
+		{
+			printf("The Stack Top Value Is (%i).\n", stack_top_value);
+		}
+		else{}
 	}
 	ret = stack_init (&stack2);
 	if (R_NOK == ret)
