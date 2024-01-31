@@ -18,6 +18,14 @@ int main ()
 	}
 	else
 	{
+		ret = stack_push (&stack1, 11);
+		ret = stack_push (&stack1, 22);
+		ret = stack_push (&stack1, 33);
+		ret = stack_push (&stack1, 44);
+		ret = stack_push (&stack1, 55);
+		ret = stack_push (&stack1, 66);
+		ret = stack_push (&stack1, 77);
+
 		printf("Initialization Success\n");
 	}
 	ret = stack_init (&stack2);

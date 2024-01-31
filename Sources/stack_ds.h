@@ -25,5 +25,6 @@ return_status_t stack_top (stack_ds_t *my_stack, uint32 *value);
 return_status_t stack_size (stack_ds_t *my_stack, uint32 *stack_size);
 return_status_t stack_display (stack_ds_t *my_stack);
 
+#define STACK_DEBUG
 
 #endif // STACK_DS_H

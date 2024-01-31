@@ -1,5 +1,6 @@
 #include "stack_ds.h"
 #include <stddef.h>
+#include <stdio.h>
 
 /**
  * @brief - check stack is full
@@ -81,11 +82,19 @@ return_status_t stack_push (stack_ds_t *my_stack, uint32 value)
 
 	if((NULL == my_stack) || (STACK_FULL == stack_full(my_stack)))
 	{
+		#ifdef STACK_DEBUG
+                printf("Erorr!! Stack Is Full, Can't Push Value (%i).\n", value);
+                #endif // STACK_DEBUG
+
 		ret = R_NOK;
 	}
 	else
 	{
-
+		my_stack->stack_pointer++;
+		my_stack->data[my_stack->stack_pointer] = value;
+		#ifdef STACK_DEBUG
+		printf("Value (%i) Pushed To The Stack.\n", value);
+		#endif // STACK_DEBUG
 		ret = R_OK;
 	}
 
