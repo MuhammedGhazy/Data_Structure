@@ -110,6 +110,27 @@ return_status_t stack_push (stack_ds_t *my_stack, uint32 value)
 */
 return_status_t stack_pop (stack_ds_t *my_stack, uint32 *value)
 {
+	return_status_t ret = R_NOK;
+	
+	if((NULL == my_stack) || (NULL == value) || (STACK_EMPTY == stack_empty(my_stack)))
+	{
+		#ifdef STACK_DEBUG
+		printf("Erorr!! Stack Is Empty, Can't Pop Any Value.\n");
+		#endif
+		ret = R_NOK;
+	}
+	else
+	{
+		*value = my_stack->data[my_stack->stack_pointer];
+		my_stack->stack_pointer--;
+		#ifdef STACK_DEBUG
+		printf("Value (%i) Popped From The Stack.\n", *value);
+                #endif
+
+		ret = R_OK;
+	}
+
+	return (ret);
 
 }
 
