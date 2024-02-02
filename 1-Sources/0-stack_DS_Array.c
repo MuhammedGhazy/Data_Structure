@@ -96,7 +96,18 @@ StackStatus_t PushStack (stack_t* stack_obj, void* ItemPtr)
         }
         else
         {
+		if(StackIsFull(stack_obj))
+		{
+			StackStatus = Stack_Full;
+		}
+		else
+		{
+			(stack_obj->StackTop)++;
+			stack_obj->StackArray[stack_obj->StackTop] = ItemPtr;
+			(stack_obj->ElementCounter)++;
+		}
 		StackStatus = Stack_OK;
+
         }
 	return (StackStatus);
 
@@ -112,14 +123,29 @@ StackStatus_t PushStack (stack_t* stack_obj, void* ItemPtr)
 */
 void* PopStack (stack_t* stack_obj, StackStatus_t *ret_status)
 {
+	void* data_ptr_out = NULL;
+
 	if((NULL == stack_obj) || (NULL == ret_status))
         {
                 *ret_status = Stack_Null_Pointer;
+		data_ptr_out = NULL;
 	}
         else
         {
-
+		if(StackIsEmpty(stack_obj))
+		{
+			*ret_status = Stack_Empty;
+			data_ptr_out = NULL;
+		}
+		else
+		{
+			data_ptr_out = stack_obj->StackArray[stack_obj->StackTop];
+			(stack_obj->StackTop)--;
+			(stack_obj->ElementCounter)--;
+			*ret_status = Stack_OK;
+		}
         }
+	return (data_ptr_out);
 }
 /**
  * StackTop -
@@ -132,14 +158,28 @@ void* PopStack (stack_t* stack_obj, StackStatus_t *ret_status)
 */
 void* StackTop (stack_t* stack_obj, StackStatus_t *ret_status)
 {
+	void* data_ptr_out = NULL;
+
 	if((NULL == stack_obj) || (NULL == ret_status))
         {
                 *ret_status = Stack_Null_Pointer;
+                data_ptr_out = NULL;
         }
         else
         {
-
+                if(StackIsEmpty(stack_obj))
+                {
+                        *ret_status = Stack_Empty;
+                        data_ptr_out = NULL;
+                }
+                else
+                {
+                        data_ptr_out = stack_obj->StackArray[stack_obj->StackTop];
+                        *ret_status = Stack_OK;
+                }
         }
+        return (data_ptr_out);
+
 }
 /**
  * StackCount -
@@ -160,6 +200,7 @@ StackStatus_t StackCount (stack_t* stack_obj, uint32 *stack_count)
         }
         else
         {
+		*stack_count = stack_obj->ElementCounter;
                 StackStatus = Stack_OK;
         }
         return (StackStatus);
@@ -174,7 +215,7 @@ StackStatus_t StackCount (stack_t* stack_obj, uint32 *stack_count)
 */
 static uint8 StackIsFull (stack_t* stack_obj)
 {
-
+	return (stack_obj->ElementCounter == stack_obj->StackMaxSize);
 }
 /**
  * StackIsEmpty -
@@ -185,6 +226,6 @@ static uint8 StackIsFull (stack_t* stack_obj)
 */
 static uint8 StackIsEmpty (stack_t* stack_obj)
 {
-
+	return (stack_obj->ElementCounter == 0);
 }
 
