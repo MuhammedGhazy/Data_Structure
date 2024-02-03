@@ -18,7 +18,7 @@ typedef enum
 	QUEUE_OK
 }queue_status_t;
 
-Queue_t *CreatQueue (uint32 max_size);
+Queue_t *CreatQueue (uint32 max_size, queue_status_t *ret_status);
 queue_status_t EnqueueElement (Queue_t *queue_obj, void *Item_ptr);
 void *DqueueElement (Queue_t *queue_obj, queue_status_t *ret_status);
 void *QueueFront (Queue_t *queue_obj, queue_status_t *ret_status);
