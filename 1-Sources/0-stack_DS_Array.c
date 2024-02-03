@@ -105,8 +105,8 @@ StackStatus_t PushStack (stack_t* stack_obj, void* ItemPtr)
 			(stack_obj->StackTop)++;
 			stack_obj->StackArray[stack_obj->StackTop] = ItemPtr;
 			(stack_obj->ElementCounter)++;
+			StackStatus = Stack_OK;
 		}
-		StackStatus = Stack_OK;
 
         }
 	return (StackStatus);
