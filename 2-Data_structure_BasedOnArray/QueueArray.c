@@ -134,36 +134,57 @@ void *DqueueElement (Queue_t *queue_obj, queue_status_t *ret_status)
 }
 void *QueueFront (Queue_t *queue_obj, queue_status_t *ret_status)
 {
-	queue_status_t status = QUEUE_NOK;
+	void * Return_Value = NULL;
 
         if((NULL == queue_obj) || (NULL == ret_status))
         {
-                status = QUEUE_NOK;
+               *ret_status = QUEUE_NULL_POINTER;
                 printf("Erorr!! This Is Invalid Address, Please Enter Valid Address.\n");
         }
         else
         {
-                status = QUEUE_OK;
+		/* check if the queue is empty */
+                if(!queue_obj->ElementCount)
+                {
+                        Return_Value = NULL;
+                        *ret_status = QUEUE_EMPTY; /* queue is empty */
+                }
+                else /* queue is not empty */
+                {
+			Return_Value = queue_obj->QueueArray[queue_obj->QueueFront];
+                	*ret_status = QUEUE_OK;
+		}
                 printf("Okay, Valid Address.\n");
         }
-        
+        return (Return_Value);
 
 }
 void *QueueRear (Queue_t *queue_obj, queue_status_t *ret_status)
 {
-	 queue_status_t status = QUEUE_NOK;
+        void * Return_Value = NULL;
 
         if((NULL == queue_obj) || (NULL == ret_status))
         {
-                status = QUEUE_NOK;
+               *ret_status = QUEUE_NULL_POINTER;
                 printf("Erorr!! This Is Invalid Address, Please Enter Valid Address.\n");
         }
         else
         {
-                status = QUEUE_OK;
+                /* check if the queue is empty */
+                if(!queue_obj->ElementCount)
+                {
+                        Return_Value = NULL;
+                        *ret_status = QUEUE_EMPTY; /* queue is empty */
+                }
+                else /* queue is not empty */
+                {
+                        Return_Value = queue_obj->QueueArray[queue_obj->QueueRear];
+                        *ret_status = QUEUE_OK;
+                }
                 printf("Okay, Valid Address.\n");
         }
-        
+        return (Return_Value);
+
 
 }
 queue_status_t GetQueueCount (Queue_t *queue_obj, uint32 *QueueCount)
@@ -177,8 +198,21 @@ queue_status_t GetQueueCount (Queue_t *queue_obj, uint32 *QueueCount)
         }
         else
         {
-                status = QUEUE_OK;
+		/* check if the queue is empty */
+                if(!queue_obj->ElementCount)
+                {
+                        status = QUEUE_EMPTY;
+                        *QueueCount = 0; /* queue is empty */
+                }
+                else /* queue is not empty */
+                {
+                       
+                       *QueueCount = queue_obj->ElementCount;
+		       status = QUEUE_OK;
+                }
+
                 printf("Okay, Valid Address.\n");
+
         }
         return (status);
 
@@ -189,13 +223,15 @@ queue_status_t DestroyQueue (Queue_t *queue_obj)
 
         if(NULL == queue_obj)
         {
-                status = QUEUE_NOK;
+                status = QUEUE_NULL_POINTER;
                 printf("Erorr!! This Is Invalid Address, Please Enter Valid Address.\n");
         }
         else
         {
+		free(queue_obj->QueueArray);
+		free(queue_obj);
                 status = QUEUE_OK;
-                printf("Okay, Valid Address.\n");
+                printf("Okay, Queue Destroed.\n");
         }
         return (status);
 

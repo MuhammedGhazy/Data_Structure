@@ -17,7 +17,8 @@ typedef enum
 	QUEUE_NOK,
 	QUEUE_OK,
 	QUEUE_FULL,
-	QUEUE_EMPTY
+	QUEUE_EMPTY,
+	QUEUE_NULL_POINTER
 }queue_status_t;
 
 Queue_t *CreatQueue (uint32 max_size, queue_status_t *ret_status);
