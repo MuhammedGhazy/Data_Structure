@@ -32,5 +32,9 @@ int main()
 	ret_val = DqueueElement(Queue, &Queue_Return); printf("=>%i\n", Queue_Return);
 	printf("Value is (0x%X)\n", *((uint32 *)ret_val));
 	ret_val = DqueueElement(Queue, &Queue_Return); printf("=>%i\n", Queue_Return);
+	if(ret_val)
+	{
+		printf("Value is (0x%X)\n", *((uint32 *)ret_val));
+	}
 	return (0);
 }
