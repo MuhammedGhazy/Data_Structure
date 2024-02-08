@@ -1,11 +1,17 @@
 #include "main.h"
+struct Node
+{
+        unsigned int Node_Data;
+        struct Node *Node_Link;
+};
+struct Node *List_Head = NULL;
+
+
 
 int main()
 {
 	int User_Choice = 0;
 	uint32_t List_Length = 0;
-	List_Status_T ret_status = List_N_Okay;
-	Return_Status_T Ret_Status = Return_NOkay;
 
  	printf("-> Hello to Single Linked List \n");
     	while(1){
@@ -42,7 +48,7 @@ int main()
                 	Delete_Node(List_Head);
             	break;
             	case 6:
-			Display_All_Nodes(List_Head);
+                    Display_All_Nodes(List_Head);
             	break;
             	case 7:
                 	List_Length = Get_Length(List_Head);

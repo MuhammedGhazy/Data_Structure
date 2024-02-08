@@ -1,9 +1,8 @@
 #include "main.h"
 
 
-Return_Status_T Insert_Node_After (struct Node **list)
+void Insert_Node_After (struct Node **list)
 {
-	Return_Status_T ret_val = List_N_Okay;
 	struct Node *TempNode = NULL, *NodeListCounter = NULL;
 	uint32_t Counter = 1, NodePosition = 0, ListLength = 0;
 
@@ -13,7 +12,6 @@ Return_Status_T Insert_Node_After (struct Node **list)
 	if(NodePosition > ListLength)
 	{
 		printf("Invalid Node Position -> List Has (%i) Nodes \n", ListLength);
-		ret_val = List_N_Okay;
 	}
 	else
 	{
@@ -26,7 +24,7 @@ Return_Status_T Insert_Node_After (struct Node **list)
 		TempNode = (struct Node *)malloc(sizeof(struct Node));
 		if(NULL == TempNode)
 		{
-			ret_val = List_N_Okay;
+		    printf("Invalid Address!!\n");
 		}
 		else
 		{
@@ -34,10 +32,8 @@ Return_Status_T Insert_Node_After (struct Node **list)
 			scanf("%i", &TempNode->Node_Data);
 			TempNode->Node_Link = NodeListCounter->Node_Link;
 			NodeListCounter->Node_Link = TempNode;
-			ret_val = List_Okay;
 		}
 	}
-	return (ret_val);
 }
 
 
