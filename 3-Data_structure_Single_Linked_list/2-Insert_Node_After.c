@@ -1,33 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stddef.h>
-#include <stdint.h>
+#include "main.h"
 
-typedef enum
-{
-	List_N_Okay,
-	List_Okay
-}Return_Status_T;
 
-struct Node
-{
-	unsigned int Node_Data;
-	struct Node *Node_Link;
-};
-
-struct Node *list_Head = NULL;
-
-Return_Status_T Insert_Node_After (struct Node **list);
-uint32_t Get_Length(struct Node *List);
-
-int main()
-{
-	Return_Status_T ret = List_N_Okay;
-
-	ret = Insert_Node_After (&list_Head); printf("Status => %i\n", ret);
-
-	return (0);
-}
 Return_Status_T Insert_Node_After (struct Node **list)
 {
 	Return_Status_T ret_val = List_N_Okay;
@@ -44,7 +17,7 @@ Return_Status_T Insert_Node_After (struct Node **list)
 	}
 	else
 	{
-		NodeListCounter = list;
+		NodeListCounter = *list;
 		while(Counter < NodePosition)
 		{
 			Counter++;
@@ -65,19 +38,6 @@ Return_Status_T Insert_Node_After (struct Node **list)
 		}
 	}
 	return (ret_val);
-}
-uint32_t Get_Length(struct Node *List)
-{
-    struct Node *TempNode = List;
-    uint32_t NodeCount = 0;
-
-    while(TempNode != NULL)
-    {
-        NodeCount++;
-        TempNode = TempNode->Node_Link;
-    }
-
-    return ( NodeCount );
 }
 
 

@@ -1,28 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <stddef.h>
-
-struct Node
-{
-	unsigned int Node_Data;
-	struct Node *Node_Link;
-};
-
-typedef enum
-{
-	List_N_Okay,
-	List_Okay
-}List_Status_T;
-
-struct Node *List_Head = NULL;
-
-List_Status_T Insert_Node_At_End (struct Node **list);
-
-int main()
-{
-
-	return (0);
-}
+#include "main.h"
 
 List_Status_T Insert_Node_At_End (struct Node **list)
 {
@@ -57,5 +33,6 @@ List_Status_T Insert_Node_At_End (struct Node **list)
 		LastNode->Node_Link = TempNode;
 		ret_Val = List_Okay;
 	}
+	return (ret_Val);
 
 }
