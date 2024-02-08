@@ -11,7 +11,7 @@ void Delete_Node(struct Node *list)
 	printf("Enter Node Position (First Node Is 1)\n");
 	scanf("%i", &NodePosition);
 	ListLength = Get_Length(list);
-	if((ListLength == 0) || (NodePosition > ListLength))
+	if((ListLength == 1) || (NodePosition > ListLength))
 	{
 		printf("Please Use Delete Node At Beginning!!\n");
 	}

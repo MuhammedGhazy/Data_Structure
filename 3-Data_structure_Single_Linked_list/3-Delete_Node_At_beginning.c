@@ -2,7 +2,7 @@
 
 void Delete_Node_At_beginning (struct Node **list)
 {
-	struct Node *TempNode = NULL;
+	struct Node *TempNode = *list;
 	uint32_t List_Lenght = 0;
 
 	List_Lenght = Get_Length (*list);
