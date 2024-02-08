@@ -1,0 +1,10 @@
+uint32 Get_Length(struct Node *List){
+    struct Node *TempNode = List;
+    uint32 NodeCount = 0;
+
+    while(TempNode != NULL){
+        NodeCount++;
+        TempNode = TempNode->NodeLink;
+    }
+
+    return NodeCount;
