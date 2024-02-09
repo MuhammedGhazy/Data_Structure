@@ -15,6 +15,8 @@ struct Node *D_L_L = NULL;
 void Display_All_Nodes (struct Node *list);
 void Insert_Node_At_Beginning (struct Node **list, uint32_t Data);
 void Insert_Node_At_End (struct Node *list, uint32_t Data);
+void Insert_Node_At_After (struct Node *list, uint32_t Data, uint32_t position);
+void Insert_Node_At_Before (struct Node **list, uint32_t Data, uint32_t position);
 
 int main()
 {
@@ -26,6 +28,12 @@ int main()
 	Insert_Node_At_End(D_L_L, 55);
 	Insert_Node_At_End(D_L_L, 66);
 	Display_All_Nodes(D_L_L);
+	Insert_Node_At_After(D_L_L, 99, 3);
+	Display_All_Nodes(D_L_L);
+	Insert_Node_At_Before(&D_L_L, 88, 1);
+	Insert_Node_At_Before(&D_L_L, 23, 5);
+	Display_All_Nodes(D_L_L);
+
 	return (0);
 }
 
@@ -81,6 +89,84 @@ void Insert_Node_At_End (struct Node *list, uint32_t Data)
 	}
 
 
+}
+
+void Insert_Node_At_After (struct Node *list, uint32_t Data, uint32_t position)
+{
+        struct Node *Temp_Node = NULL, *Node_List_Counter_One = NULL, *Node_List_Counter_Tow = NULL;
+
+	Node_List_Counter_One = list;
+	while(position != 1)
+	{
+		Node_List_Counter_One = Node_List_Counter_One->Right_Node_Link;
+		position--;
+	}
+
+        Temp_Node =(struct Node *) malloc(sizeof(struct Node));
+        if(NULL != Temp_Node)
+        {
+                Temp_Node->Node_Data = Data;
+		if(NULL == Node_List_Counter_One->Right_Node_Link)
+		{
+			Node_List_Counter_One->Right_Node_Link = Temp_Node;
+			Temp_Node->Left_Node_Link = Node_List_Counter_One;
+                	Temp_Node->Right_Node_Link = NULL;
+		}
+		else
+		{
+			Node_List_Counter_Tow = Node_List_Counter_One->Right_Node_Link;
+			Node_List_Counter_One->Right_Node_Link = Temp_Node;
+			Node_List_Counter_Tow->Left_Node_Link = Temp_Node;
+			Temp_Node->Left_Node_Link = Node_List_Counter_One;
+			Temp_Node->Right_Node_Link = Node_List_Counter_Tow;
+		}
+	}
+	else
+        {
+                 printf("Error!! Cant Allocate The new Node.\n");
+        }
+
+
+}
+
+void Insert_Node_At_Before (struct Node **list, uint32_t Data, uint32_t position)
+{
+	struct Node *Temp_Node = NULL;
+	struct Node *Node_List_Counter_One = NULL;
+	struct Node *Node_List_Counter_Tow = NULL;
+	uint32_t Node_Position = position;
+
+	Node_List_Counter_One = (*list);
+	while(Node_Position > position -1)
+	{
+		Node_List_Counter_One = Node_List_Counter_One->Right_Node_Link;
+		Node_Position--;
+	}
+	Temp_Node = (struct Node *) malloc (sizeof(struct Node));
+	if(NULL != Temp_Node)
+	{
+		Temp_Node->Node_Data = Data;
+		if(1 == position)
+		{
+			Temp_Node->Left_Node_Link = NULL;
+			Temp_Node->Right_Node_Link = (*list);
+			(*list)->Left_Node_Link = Temp_Node;
+			(*list) = Temp_Node;
+		}
+		else
+		{
+			Node_List_Counter_Tow = Node_List_Counter_One->Right_Node_Link;
+			Node_List_Counter_One->Right_Node_Link = Temp_Node;
+			Node_List_Counter_Tow->Left_Node_Link = Temp_Node;
+			Temp_Node->Right_Node_Link = Node_List_Counter_Tow;
+			Temp_Node->Left_Node_Link = Node_List_Counter_One;
+		}
+	}
+	else
+	{
+			printf("Error!! Cant Allocate The new Node.\n");
+	}
+	
 }
 
 void Display_All_Nodes (struct Node *list)
