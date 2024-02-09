@@ -3,6 +3,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#define DELETE_NODE_AT_BEGINNING
+
 struct Node
 {
 	uint32_t Node_Data;
@@ -168,6 +170,13 @@ void Insert_Node_At_Before (struct Node **list, uint32_t Data, uint32_t position
 	}
 	
 }
+
+void Delete_Node_At_Beginning(struct Node **list)
+{
+	struct Node Temp_Node = *list;
+
+#ifdef DELETE_NODE_AT_BEGINNING
+
 
 void Display_All_Nodes (struct Node *list)
 {
