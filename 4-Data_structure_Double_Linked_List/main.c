@@ -21,6 +21,10 @@ void Insert_Node_At_After (struct Node *list, uint32_t Data, uint32_t position);
 void Insert_Node_At_Before (struct Node **list, uint32_t Data, uint32_t position);
 void Delete_Node_At_Beginning(struct Node **list);
 void Delete_Node_At_End (struct Node *list);
+void Delete_Node_At_Intermediate (struct Node *list, uint32_t position);
+void Display_All_Nodes_Forward(struct Node *List);
+void Display_All_Nodes_Reverse(struct Node *List);
+
 int main()
 {
 	Insert_Node_At_Beginning(&D_L_L, 11);
@@ -207,6 +211,24 @@ void Delete_Node_At_End (struct Node *list)
 	Node_List_Counter_One = NULL;
 }
 
+void Delete_Node_At_Intermediate (struct Node *list, uint32_t position)
+{
+	struct Node *Node_List_Counter_One = list;
+        struct Node *Node_List_Counter_Two = NULL;
+
+	while(position > 1)
+	{
+		Node_List_Counter_One = Node_List_Counter_One->Right_Node_Link;
+		position--;
+	}
+	Node_List_Counter_Two = Node_List_Counter_One->Left_Node_Link;
+	Node_List_Counter_Two->Right_Node_Link = Node_List_Counter_One->Right_Node_Link;
+	Node_List_Counter_One->Right_Node_Link = Node_List_Counter_Two;
+	free(Node_List_Counter_One);
+	Node_List_Counter_One = NULL;
+}
+
+
 void Display_All_Nodes (struct Node *list)
 {
         struct Node *TempNode = list;
@@ -230,4 +252,44 @@ void Display_All_Nodes (struct Node *list)
         }
 }
 
+void Display_All_Nodes_Forward(struct Node *List)
+{
+    struct Node *TempNode = List;
+
+    printf("\nTraversal in forward direction ==> ");
+    printf("Data : ");
+    printf("%d -> ", TempNode->Node_Data);
+    while(TempNode->Right_Node_Link != NULL)
+    {
+        TempNode = TempNode->Right_Node_Link;
+        printf("%d -> ", TempNode->Node_Data);
+    }
+    if(NULL == TempNode->Right_Node_Link)
+    {
+        printf("NULL");
+    }
+    printf("\n");
+}
+
+void Display_All_Nodes_Reverse(struct Node *List)
+{
+    struct Node *TempNode = List;
+
+    printf("\nTraversal in reverse direction ==> ");
+    printf("Data : ");
+    while(TempNode->Right_Node_Link != NULL)
+    {
+        TempNode = TempNode->Right_Node_Link;
+    }
+    while(TempNode != NULL)
+    {
+        printf("%d -> ", TempNode->Node_Data);
+        TempNode = TempNode->Left_Node_Link;
+    }
+    if(NULL == TempNode)
+    {
+        printf("NULL");
+    }
+    printf("\n");
+}
 
