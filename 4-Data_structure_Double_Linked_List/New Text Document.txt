@@ -1,0 +1,33 @@
+void Display_All_Nodes_Forward(struct Node *List){
+    struct Node *TempNode = List;
+
+    printf("\nTraversal in forward direction ==> ");
+    printf("Data : ");
+    printf("%d -> ", TempNode->NodeData);
+    while(TempNode->RightNodeLink != NULL){
+        TempNode = TempNode->RightNodeLink;
+        printf("%d -> ", TempNode->NodeData);
+    }
+    if(NULL == TempNode->RightNodeLink){
+        printf("NULL");
+    }
+    printf("\n");
+}
+
+void Display_All_Nodes_Reverse(struct Node *List){
+    struct Node *TempNode = List;
+
+    printf("\nTraversal in reverse direction ==> ");
+    printf("Data : ");
+    while(TempNode->RightNodeLink != NULL){
+        TempNode = TempNode->RightNodeLink;
+    }
+    while(TempNode != NULL){
+        printf("%d -> ", TempNode->NodeData);
+        TempNode = TempNode->LeftNodeLink;
+    }
+    if(NULL == TempNode){
+        printf("NULL");
+    }
+    printf("\n");
+}
