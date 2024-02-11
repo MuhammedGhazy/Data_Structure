@@ -19,7 +19,8 @@ void Insert_Node_At_Beginning (struct Node **list, uint32_t Data);
 void Insert_Node_At_End (struct Node *list, uint32_t Data);
 void Insert_Node_At_After (struct Node *list, uint32_t Data, uint32_t position);
 void Insert_Node_At_Before (struct Node **list, uint32_t Data, uint32_t position);
-
+void Delete_Node_At_Beginning(struct Node **list);
+void Delete_Node_At_End (struct Node *list);
 int main()
 {
 	Insert_Node_At_Beginning(&D_L_L, 11);
@@ -34,6 +35,9 @@ int main()
 	Display_All_Nodes(D_L_L);
 	Insert_Node_At_Before(&D_L_L, 88, 1);
 	Insert_Node_At_Before(&D_L_L, 23, 5);
+	Delete_Node_At_Beginning(&D_L_L);
+	Delete_Node_At_End(D_L_L);
+	Delete_Node_At_End(D_L_L);
 	Display_All_Nodes(D_L_L);
 
 	return (0);
@@ -173,10 +177,35 @@ void Insert_Node_At_Before (struct Node **list, uint32_t Data, uint32_t position
 
 void Delete_Node_At_Beginning(struct Node **list)
 {
-	struct Node Temp_Node = *list;
+	struct Node *Temp_Node = *list;
 
 #ifdef DELETE_NODE_AT_BEGINNING
 
+(*list) = (*list)->Right_Node_Link;
+(*list)->Left_Node_Link = NULL;
+free(Temp_Node);
+Temp_Node = NULL;
+#elif
+(*list) = (*list)->Right_Node_Link;
+free((*list)->Left_Node_Link);
+(*list)->Left_Node_Link = NULL;
+#endif
+}
+
+void Delete_Node_At_End (struct Node *list)
+{
+	struct Node *Node_List_Counter_One = list;
+	struct Node *Node_List_Counter_Two = NULL;
+
+	while(Node_List_Counter_One->Right_Node_Link != NULL)
+	{
+		Node_List_Counter_One = Node_List_Counter_One->Right_Node_Link;
+	}
+	Node_List_Counter_Two = Node_List_Counter_One->Left_Node_Link;
+	Node_List_Counter_Two->Right_Node_Link = NULL;
+	free(Node_List_Counter_One);
+	Node_List_Counter_One = NULL;
+}
 
 void Display_All_Nodes (struct Node *list)
 {
